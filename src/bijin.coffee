@@ -13,16 +13,16 @@
 #
 # Author:
 #   tatsuaki_w <tatsuaki.w@gmail.com>
+require('date-utils');
 
 module.exports = (robot) ->
-
   robot.respond /(何時|今何時)/i, (msg) ->
-    places = [ 'jp', 'taiwan', 'hawaii', 'thailand', 'binan' ]
+    places = [ 'jp', 'taiwan', 'hawaii', 'thailand']
     place = places[Math.floor(Math.random() * places.length)]
-    date = new Date
-    hour = ('0' + date.getHours()).slice(-2)
-    minute = ('0' + date.getMinutes()).slice(-2)
-    img = "http://www.bijint.com/assets/pict/" + place + "/pc/" + hour + minute + ".jpg"
-    msg.send img
+
+    dt = new Date();
+    formattedTime = dt.toFormat("HH24MI");
+    img_url = "http://www.bijint.com/assets/pict/" + place + "/pc/" + formattedTime + ".jpg"
+    msg.send(img_url)
 
     msg.finish()
